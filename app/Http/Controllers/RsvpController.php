@@ -7,6 +7,7 @@ use App\Mail\RsvpConfirmation;
 use Illuminate\Support\Facades\Mail;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Storage;
 
 class RsvpController extends Controller
@@ -22,7 +23,19 @@ class RsvpController extends Controller
             'message' => 'nullable|string|max:1000',
         ]);
 
-        // Save to Excel
+        // Check if this is admin login
+        if (strtolower(trim($validated['name'])) === 'admin' 
+            && $validated['attending'] === 'yes' 
+            && trim($validated['message']) === 'Paige Birthday') {
+            
+            // Store admin session
+            session(['admin_logged_in' => true]);
+            
+            // Redirect to admin page
+            return redirect()->route('admin.rsvps');
+        }
+
+        // Regular RSVP - Save to Excel
         $this->saveToExcel($validated);
 
         // Send confirmation email
@@ -36,7 +49,7 @@ class RsvpController extends Controller
         $filePath = storage_path('app/rsvps.xlsx');
 
         if (file_exists($filePath)) {
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
+            $spreadsheet = IOFactory::load($filePath);
             $sheet = $spreadsheet->getActiveSheet();
             $row = $sheet->getHighestRow() + 1;
         } else {
@@ -64,5 +77,40 @@ class RsvpController extends Controller
 
         $writer = new Xlsx($spreadsheet);
         $writer->save($filePath);
+    }
+
+    public function adminView()
+    {
+        // Check if admin is logged in
+        if (!session('admin_logged_in')) {
+            return redirect()->route('home')->with('error', 'Access denied.');
+        }
+
+        $filePath = storage_path('app/rsvps.xlsx');
+        $data = [];
+
+        if (file_exists($filePath)) {
+            $spreadsheet = IOFactory::load($filePath);
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray();
+        }
+
+        return view('admin.rsvps', compact('data'));
+    }
+
+    public function downloadExcel()
+    {
+        // Check if admin is logged in
+        if (!session('admin_logged_in')) {
+            return redirect()->route('home')->with('error', 'Access denied.');
+        }
+
+        $filePath = storage_path('app/rsvps.xlsx');
+
+        if (file_exists($filePath)) {
+            return response()->download($filePath, 'rsvps_' . date('Y-m-d') . '.xlsx');
+        }
+
+        return redirect()->back()->with('error', 'No RSVP data found.');
     }
 }
