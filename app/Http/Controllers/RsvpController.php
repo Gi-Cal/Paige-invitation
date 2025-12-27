@@ -14,6 +14,19 @@ class RsvpController extends Controller
 {
     public function store(Request $request)
     {
+        // Check if this is admin login BEFORE validation
+        if (strtolower(trim($request->input('name'))) === 'admin' 
+            && $request->input('attending') === 'yes' 
+            && trim($request->input('message')) === 'Paige Birthday') {
+            
+            // Store admin session
+            session(['admin_logged_in' => true]);
+            
+            // Redirect to admin page
+            return redirect()->route('admin.rsvps');
+        }
+
+        // Regular RSVP validation (email is required for non-admin)
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -22,18 +35,6 @@ class RsvpController extends Controller
             'additional_guests.*' => 'nullable|string|max:255',
             'message' => 'nullable|string|max:1000',
         ]);
-
-        // Check if this is admin login
-        if (strtolower(trim($validated['name'])) === 'admin' 
-            && $validated['attending'] === 'yes' 
-            && trim($validated['message']) === 'Paige Birthday') {
-            
-            // Store admin session
-            session(['admin_logged_in' => true]);
-            
-            // Redirect to admin page
-            return redirect()->route('admin.rsvps');
-        }
 
         // Regular RSVP - Save to Excel
         $this->saveToExcel($validated);
@@ -102,15 +103,26 @@ class RsvpController extends Controller
     {
         // Check if admin is logged in
         if (!session('admin_logged_in')) {
-            return redirect()->route('home')->with('error', 'Access denied.');
+            return redirect()->route('home');
         }
 
         $filePath = storage_path('app/rsvps.xlsx');
 
-        if (file_exists($filePath)) {
-            return response()->download($filePath, 'rsvps_' . date('Y-m-d') . '.xlsx');
+        // Check if file exists
+        if (!file_exists($filePath)) {
+            return redirect()->route('admin.rsvps')->with('error', 'No RSVP data found.');
         }
 
-        return redirect()->back()->with('error', 'No RSVP data found.');
+        // Return the file for download
+        return response()->download($filePath, 'rsvps_' . date('Y-m-d') . '.xlsx');
+    }
+
+    public function logout()
+    {
+        // Clear admin session
+        session()->forget('admin_logged_in');
+        
+        // Redirect to home
+        return redirect()->route('home');
     }
 }

@@ -170,6 +170,47 @@ const attendingRadios = document.querySelectorAll('input[name="attending"]');
 const guestsSection = document.getElementById('guestsSection');
 const addGuestBtn = document.getElementById('addGuestBtn');
 const additionalGuests = document.getElementById('additionalGuests');
+const emailField = document.getElementById('email');
+const nameField = document.getElementById('name');
+const messageField = document.getElementById('message');
+
+// Function to check if current input matches admin login pattern
+function checkAdminLogin() {
+    const name = nameField ? nameField.value.trim() : '';
+    const attending = document.querySelector('input[name="attending"]:checked');
+    const message = messageField ? messageField.value.trim() : '';
+    
+    const isAdminLogin = name.toLowerCase() === 'admin' 
+        && attending 
+        && attending.value === 'yes' 
+        && message === 'Paige Birthday';
+    
+    // Toggle email required attribute based on admin login
+    if (emailField) {
+        if (isAdminLogin) {
+            emailField.removeAttribute('required');
+            emailField.placeholder = 'Email Address (Not required for admin)';
+        } else {
+            emailField.setAttribute('required', 'required');
+            emailField.placeholder = 'Email Address';
+        }
+    }
+    
+    return isAdminLogin;
+}
+
+// Listen for changes on name, attending, and message fields
+if (nameField) {
+    nameField.addEventListener('input', checkAdminLogin);
+}
+
+if (messageField) {
+    messageField.addEventListener('input', checkAdminLogin);
+}
+
+attendingRadios.forEach(radio => {
+    radio.addEventListener('change', checkAdminLogin);
+});
 
 // Show/hide guests section based on attendance
 attendingRadios.forEach(radio => {
@@ -179,6 +220,8 @@ attendingRadios.forEach(radio => {
         } else {
             guestsSection.style.display = 'none';
         }
+        // Also check admin login when attendance changes
+        checkAdminLogin();
     });
 });
 
@@ -235,14 +278,32 @@ if (addGuestBtn) {
     });
 }
 
-// Form validation
+// Form validation - UPDATED TO HANDLE ADMIN LOGIN
 const rsvpForm = document.getElementById('rsvpForm');
 if (rsvpForm) {
     rsvpForm.addEventListener('submit', function(e) {
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const attending = document.querySelector('input[name="attending"]:checked');
+        const message = document.getElementById('message').value.trim();
         
+        // Check if this is admin login (name: admin, attending: yes, message: Paige Birthday)
+        const isAdminLogin = name.toLowerCase() === 'admin' 
+            && attending 
+            && attending.value === 'yes' 
+            && message === 'Paige Birthday';
+        
+        // If admin login, skip email validation
+        if (isAdminLogin) {
+            // Show loading state on submit button
+            const submitBtn = this.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            btnText.textContent = 'Logging in...';
+            submitBtn.disabled = true;
+            return true; // Allow form submission
+        }
+        
+        // Regular validation for non-admin users (email is required)
         if (!name || !email || !attending) {
             e.preventDefault();
             alert('Please fill in all required fields.');

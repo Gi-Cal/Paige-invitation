@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - RSVP Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+   
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
             background: linear-gradient(135deg, #f5e6d3 0%, #d4a574 100%);
             min-height: 100vh;
             padding: 20px;
@@ -120,6 +120,10 @@
         .btn-logout {
             background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
+        }
+
+        .btn-logout:hover {
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
         }
 
         .table-container {
@@ -249,12 +253,9 @@
                 <a href="{{ route('admin.download') }}" class="btn">
                     📥 Download Excel
                 </a>
-                <a href="{{ route('home') }}" class="btn btn-logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a href="{{ route('admin.logout') }}" class="btn btn-logout">
                     🚪 Logout
                 </a>
-                <form id="logout-form" action="{{ route('home') }}" method="GET" style="display: none;">
-                    @php session()->forget('admin_logged_in'); @endphp
-                </form>
             </div>
         </div>
 
