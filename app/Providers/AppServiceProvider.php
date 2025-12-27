@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema; // ✅ Add this line
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL; // ✅ Add this line
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // ✅ Fix for "Specified key was too long" error
+        // Fix for "Specified key was too long" error
         Schema::defaultStringLength(191);
+        
+        // ✅ Force HTTPS in production
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
