@@ -40,7 +40,7 @@ class RsvpController extends Controller
         $this->saveToExcel($validated);
 
         // Send confirmation email
-        Mail::to($validated['email'])->queue(new RsvpConfirmation($validated));
+        Mail::to($validated['email'])->send(new RsvpConfirmation($validated));
 
         return redirect()->back()->with('success', 'Thank you for your RSVP! A confirmation email has been sent.');
     }
