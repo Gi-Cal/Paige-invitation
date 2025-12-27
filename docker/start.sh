@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Fix permissions for storage and cache
+# Fix permissions
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
@@ -13,20 +13,14 @@ php artisan view:clear
 # Run migrations
 php artisan migrate --force
 
-# Start PHP-FPM and Nginx
+# Start PHP-FPM in background
 php-fpm -D
-nginx -g 'daemon off;'
-```
 
-### Issue 2: Use PostgreSQL (Not MySQL)
+# Start Nginx in foreground AND tail Laravel logs
+nginx -g 'daemon off;' &
 
-Your Render environment variables are still set to `DB_CONNECTION=mysql`, but your Docker image doesn't have MySQL drivers.
+# Wait a moment for services to start
+sleep 2
 
-**In Render Environment Variables, change:**
-```
-DB_CONNECTION=pgsql
-```
-
-**And make sure you have:**
-```
-DATABASE_URL=<your PostgreSQL Internal Database URL>
+# Tail Laravel logs (this will show errors in Render logs)
+tail -f /var/www/html/storage/logs/laravel.log
