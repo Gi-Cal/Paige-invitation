@@ -12,28 +12,15 @@ php artisan view:clear
 # Run migrations
 php artisan migrate --force
 
-# Start queue worker in background
-php artisan queue:work --daemon --tries=3 --timeout=90 &
-
 # Start PHP-FPM
 php-fpm -D
 
-# Start Nginx AND tail logs simultaneously
-nginx -g 'daemon off;' &
-tail -f /var/www/html/storage/logs/laravel.log &
-wait
-```
+# Start queue worker with auto-restart (runs in background)
+while true; do
+    php artisan queue:work --sleep=3 --tries=3 --max-time=3600 2>&1
+    echo "Queue worker stopped, restarting in 5 seconds..."
+    sleep 5
+done &
 
-### Step 4: Add Mail Environment Variables to Render
-
-Go to your Render dashboard → Your service → Environment → Add these:
-```
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=iamgiancarlli@gmail.com
-MAIL_PASSWORD=ricaeycqebridruc
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=iamgiancarlli@gmail.com
-MAIL_FROM_NAME=Paige Invitation
-QUEUE_CONNECTION=database
+# Start Nginx in foreground
+nginx -g 'daemon off;'
