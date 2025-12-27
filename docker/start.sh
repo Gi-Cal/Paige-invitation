@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# Start PHP-FPM in the background
-php-fpm -D
-
-# Run Laravel optimizations
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-# Run migrations
+# Your existing startup commands...
+php artisan config:clear
+php artisan cache:clear
 php artisan migrate --force
 
-# Start Nginx in the foreground
-nginx -g 'daemon off;'
+# Start services
+php-fpm &
+nginx -g 'daemon off;' &
+
+# Tail Laravel logs to Render's log viewer (FREE)
+tail -f /var/www/html/storage/logs/laravel.log
