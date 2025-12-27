@@ -82,6 +82,7 @@
 
     <section id="section2">
         <img src="{{ asset('assets/images/section2.1.png') }}" alt="Decoration" class="section-overlay-image desktop-overlay"> 
+        <img src="{{ asset('assets/images/section2.1tv.png') }}" alt="Decoration" class="section-overlay-image tablet-overlay">
         <img src="{{ asset('assets/images/section2.1mv.png') }}" alt="Decoration" class="section-overlay-image mobile-overlay"> 
 
         <div class="container">
@@ -110,6 +111,7 @@
 
     <section id="section3">
         <img src="{{ asset('assets/images/section3.1.png') }}" alt="Decoration" class="section-overlay-image desktop-overlay">
+        <img src="{{ asset('assets/images/section3.1tv.png') }}" alt="Decoration" class="section-overlay-image tablet-overlay">
         <img src="{{ asset('assets/images/section3.1mv.png') }}" alt="Decoration" class="section-overlay-image mobile-overlay">
 
         <div class="notes-container">
@@ -148,6 +150,7 @@
 
 <section id="section4">
     <img src="{{ asset('assets/images/section4.1.png') }}" alt="Decoration" class="section-overlay-image desktop-overlay">
+    <img src="{{ asset('assets/images/section4.1tv.png') }}" alt="Decoration" class="section-overlay-image tablet-overlay">
     <img src="{{ asset('assets/images/section4.1mv.png') }}" alt="Decoration" class="section-overlay-image mobile-overlay">
     
     <div class="rsvp-container">

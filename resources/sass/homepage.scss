@@ -24,6 +24,28 @@ body {
     font-family: 'Georgia', serif;
     overflow-x: hidden;
     overflow-y: auto;
+    
+    // Fairy dust cursor
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="24">✨</text></svg>') 16 16, auto;
+    
+    // Prevent text selection and blinking cursor on non-input elements
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+// Allow text selection only on input elements
+input, textarea {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+// Fairy dust cursor for clickable elements
+a, button, input[type="submit"], input[type="radio"], .hamburger, .close-menu {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="24">🧚</text></svg>') 16 16, pointer !important;
 }
 
 // Navigation
@@ -197,9 +219,13 @@ section {
     }
 }
 
-// Show desktop images by default, hide mobile
+// Show desktop images by default, hide mobile and tablet
 .desktop-overlay {
     display: block;
+}
+
+.tablet-overlay {
+    display: none;
 }
 
 .mobile-overlay {
@@ -422,7 +448,7 @@ section {
     }
 
     .note-card {
-        background: #ebebeb80;
+        background: #ebebeb44;
         border-radius: 15px;
         padding: 35px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -782,9 +808,13 @@ form {
 }
 
 // Mobile Responsive
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     // Switch to mobile overlay images
     .desktop-overlay {
+        display: none !important;
+    }
+
+    .tablet-overlay {
         display: none !important;
     }
 
@@ -964,6 +994,22 @@ form {
     }
 }
 
+// Tablet Responsive (768px - 1366px) - Covers iPad Pro
+@media (min-width: 768px) and (max-width: 1366px) {
+    // Switch to tablet overlay images
+    .desktop-overlay {
+        display: none !important;
+    }
+
+    .tablet-overlay {
+        display: block !important;
+    }
+
+    .mobile-overlay {
+        display: none !important;
+    }
+}
+
 @media (max-width: 480px) {
     nav ul {
         width: 80%;
@@ -1034,11 +1080,11 @@ form {
     
     #section4 {
         .submit-btn {
+            font-size: 1rem;
             width: 100%;
-            font-size: .9rem;
         }
-        .btn-sparkle {
-        font-size: 1rem;
+        .btn-sparkle{
+            font-size: 1rem;
         }
     }
 }
