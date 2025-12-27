@@ -15,7 +15,7 @@ php artisan migrate --force
 # Start PHP-FPM
 php-fpm -D
 
-# Start queue worker with auto-restart (runs in background)
+# Start queue worker with auto-restart
 while true; do
     php artisan queue:work --sleep=3 --tries=3 --max-time=3600 2>&1
     echo "Queue worker stopped, restarting in 5 seconds..."
