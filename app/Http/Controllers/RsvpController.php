@@ -42,7 +42,7 @@ class RsvpController extends Controller
         // Send confirmation email
         Mail::to($validated['email'])->send(new RsvpConfirmation($validated));
 
-        return redirect()->back()->with('success', 'Thank you for your RSVP! A confirmation email has been sent. Please check your spam/junk folder if you don\'t see it.');
+        return redirect()->back()->with('success', 'Thank you for your RSVP! A confirmation email has been sent. Please check your SPAM folder if you don\'t see it.');
     }
 
     private function saveToExcel($data)

@@ -228,7 +228,7 @@
             
             <div class="contact-info">
                 <strong>Need to reach us?</strong>
-                <p>Email: iamgiancarlli@gmail.com</p>
+                <p>Email: paigeinv@gmail.com</p>
                 <p>We're here to answer any questions!</p>
             </div>
         </div>
