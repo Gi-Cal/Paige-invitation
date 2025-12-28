@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\URL; // ✅ Add this line
+use Illuminate\Support\Facades\URL; 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendGridTransport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +30,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+
+                Mail::extend('sendgrid', function () {
+            return new SendGridTransport(config('services.sendgrid.key'));
+        });
     }
 }
