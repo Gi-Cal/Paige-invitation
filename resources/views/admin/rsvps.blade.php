@@ -83,16 +83,27 @@
             border-bottom: 3px solid #D6C17A;
         }
 
-        .total-count {
-            font-size: 1.5rem;
-            color: #4d683e;
-            font-weight: 700;
+        .stats {
+            display: flex;
+            gap: 30px;
         }
 
-        .total-count span {
-            font-size: 2rem;
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
             color: #D6C17A;
             font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #4d683e;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         .btn {
@@ -224,6 +235,11 @@
                 text-align: center;
             }
 
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+
             .table-container {
                 padding: 20px;
             }
@@ -246,8 +262,19 @@
         </div>
 
         <div class="actions">
-            <div class="total-count">
-                Total RSVPs: <span>{{ count($data) > 0 ? count($data) - 1 : 0 }}</span>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">{{ $rsvps->count() }}</span>
+                    <span class="stat-label">Total RSVPs</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ $rsvps->where('attending', 'yes')->count() }}</span>
+                    <span class="stat-label">Attending</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ $rsvps->where('attending', 'no')->count() }}</span>
+                    <span class="stat-label">Not Attending</span>
+                </div>
             </div>
             <div style="display: flex; gap: 15px;">
                 <a href="{{ route('admin.download') }}" class="btn">
@@ -260,10 +287,11 @@
         </div>
 
         <div class="table-container">
-            @if(count($data) > 1)
+            @if($rsvps->isNotEmpty())
                 <table>
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Attending</th>
@@ -273,20 +301,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for($i = 1; $i < count($data); $i++)
+                        @foreach($rsvps as $index => $rsvp)
                             <tr>
-                                <td><strong>{{ $data[$i][0] ?? 'N/A' }}</strong></td>
-                                <td>{{ $data[$i][1] ?? 'N/A' }}</td>
+                                <td><strong>{{ $index + 1 }}</strong></td>
+                                <td><strong>{{ $rsvp->name }}</strong></td>
+                                <td>{{ $rsvp->email }}</td>
                                 <td>
-                                    <span class="status-badge status-{{ strtolower($data[$i][2] ?? 'no') }}">
-                                        {{ $data[$i][2] ?? 'N/A' }}
+                                    <span class="status-badge status-{{ $rsvp->attending }}">
+                                        {{ ucfirst($rsvp->attending) }}
                                     </span>
                                 </td>
-                                <td>{{ $data[$i][3] ?: '-' }}</td>
-                                <td>{{ $data[$i][4] ?: '-' }}</td>
-                                <td>{{ $data[$i][5] ?? 'N/A' }}</td>
+                                <td>{{ $rsvp->additional_guests ?: '-' }}</td>
+                                <td>{{ $rsvp->message ?: '-' }}</td>
+                                <td>{{ $rsvp->created_at->format('M d, Y h:i A') }}</td>
                             </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
             @else
