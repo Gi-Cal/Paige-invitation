@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\RsvpConfirmation;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -36,11 +37,29 @@ class RsvpController extends Controller
             'message' => 'nullable|string|max:1000',
         ]);
 
-        // Regular RSVP - Save to Excel
-        $this->saveToExcel($validated);
+        Log::info('=== RSVP SUBMISSION START ===');
+        Log::info('Name: ' . $validated['name']);
+        Log::info('Email: ' . $validated['email']);
 
-        // Send confirmation email
-        Mail::to($validated['email'])->send(new RsvpConfirmation($validated));
+        try {
+            // Regular RSVP - Save to Excel
+            $this->saveToExcel($validated);
+            Log::info('Excel save completed successfully');
+        } catch (\Exception $e) {
+            Log::error('Excel save FAILED: ' . $e->getMessage());
+            Log::error($e->getTraceAsString());
+            // Don't stop - still try to send email
+        }
+
+        try {
+            // Send confirmation email
+            Mail::to($validated['email'])->send(new RsvpConfirmation($validated));
+            Log::info('Email sent successfully');
+        } catch (\Exception $e) {
+            Log::error('Email send FAILED: ' . $e->getMessage());
+        }
+
+        Log::info('=== RSVP SUBMISSION END ===');
 
         return redirect()->back()->with('success', 'Thank you for your RSVP! A confirmation email has been sent. Please check your SPAM folder if you don\'t see it.');
     }
@@ -48,11 +67,16 @@ class RsvpController extends Controller
     private function saveToExcel($data)
     {
         $filePath = storage_path('app/rsvps.xlsx');
+        
+        Log::info('Excel file path: ' . $filePath);
+        Log::info('File exists: ' . (file_exists($filePath) ? 'YES' : 'NO'));
+        Log::info('Directory writable: ' . (is_writable(storage_path('app')) ? 'YES' : 'NO'));
 
         if (file_exists($filePath)) {
             $spreadsheet = IOFactory::load($filePath);
             $sheet = $spreadsheet->getActiveSheet();
             $row = $sheet->getHighestRow() + 1;
+            Log::info('Appending to existing file at row: ' . $row);
         } else {
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
@@ -66,6 +90,7 @@ class RsvpController extends Controller
             $sheet->setCellValue('F1', 'Submitted At');
             
             $row = 2;
+            Log::info('Creating new Excel file, starting at row 2');
         }
 
         // Add data
@@ -78,6 +103,9 @@ class RsvpController extends Controller
 
         $writer = new Xlsx($spreadsheet);
         $writer->save($filePath);
+        
+        Log::info('Excel file saved. Total rows now: ' . $sheet->getHighestRow());
+        Log::info('File size: ' . filesize($filePath) . ' bytes');
     }
 
     public function adminView()
@@ -90,10 +118,16 @@ class RsvpController extends Controller
         $filePath = storage_path('app/rsvps.xlsx');
         $data = [];
 
+        Log::info('Admin viewing RSVPs');
+        Log::info('Excel file exists: ' . (file_exists($filePath) ? 'YES' : 'NO'));
+
         if (file_exists($filePath)) {
             $spreadsheet = IOFactory::load($filePath);
             $sheet = $spreadsheet->getActiveSheet();
             $data = $sheet->toArray();
+            Log::info('Loaded ' . count($data) . ' rows from Excel');
+        } else {
+            Log::warning('Excel file does not exist when admin tried to view');
         }
 
         return view('admin.rsvps', compact('data'));

@@ -22,5 +22,8 @@ while true; do
     sleep 5
 done &
 
+# Tail Laravel logs to see them in Render console
+tail -f /var/www/html/storage/logs/laravel.log &
+
 # Start Nginx in foreground
 nginx -g 'daemon off;'
