@@ -71,7 +71,7 @@
 
     <section id="section1">
         <div class="content1">
-            <h1 id="mainTitle">CHAPTER ONE</h1>
+            <h1 id="mainTitle">PAIGE ONE</h1>
             <hr>
             <h2 id="subtitle"></h2>
             <p class="subtext">
@@ -93,15 +93,15 @@
             <h4>When the clock strikes two, the festivities shall begin</h4>
             <div class="date">
                 <h2>DATE</h2>
-                <p>Saturday, December 14th, 2024</p>
+                <p>Saturday, January 21, 2026</p>
             </div>
             <div class="time">
                 <h2>TIME</h2>
-                <p>2:00 PM - 5:00 PM</p>
+                <p>5:00 PM - 7:00 PM</p>
             </div>
             <div class="venue">
                 <h2>VENUE</h2>
-                <p>The Enchanted Garden<br>123 Storybook Lane, Wonderland</p>
+                <p>Jollibee Acacia Lane, Mandaluyong City</p>
             </div>
             <div class="down">
                 <img src="{{ asset('assets/images/down.png') }}" alt="Down decoration"/>
@@ -122,27 +122,32 @@
 
             <div class="notes-grid">
                 <div class="note-card">
-                    <div class="note-icon">♡</div>
-                    <h2>Bring Your Joy</h2>
-                    <p>Your presence is the greatest gift of all. Come with a heart full of wonder!</p>
+                    <div class="note-icon">🎭</div>
+                    <h2>Dress Up Fun</h2>
+                    <p>We'd be so happy to see everyone in costume, it's highly appreciated! If not, cartoon, Disney, or book-character outfits, shirts, or fun headbands & accessories will still make the day extra special.</p>
                 </div>
 
                 <div class="note-card">
                     <div class="note-icon">🎁</div>
                     <h2>Gifts Optional</h2>
-                    <p>While not required, books for our little one's library would be treasured.</p>
+                    <p>Your presence is the greatest gift. However, should you wish to bring something, we've prepared a small wish list below:</p>
+                    <ul class="gift-list">
+                        <li>EQ Diaper (Large)</li>
+                        <li>Mustela Products (Bath/Lotion)</li>
+                        <li>Monetary gift</li>
+                    </ul>
                 </div>
 
                 <div class="note-card">
                     <div class="note-icon">📷</div>
                     <h2>Capture the Magic</h2>
-                    <p>Feel free to take photos and share the memories. Use #FirstChapter on social media!</p>
+                    <p>Feel free to take photos and share the memories!</p>
                 </div>
 
                 <div class="note-card">
                     <div class="note-icon">✈</div>
                     <h2>RSVP Soon</h2>
-                    <p>Please let us know if you can join by December 1st, so we can prepare the feast!</p>
+                    <p>Please let us know if you can join by December 15th, so we can prepare the feast!</p>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 // ========================================
-// HOMEPAGE STYLES
+// HOMEPAGE STYLES - PART 1
 // ========================================
 
 // Variables
@@ -247,7 +247,7 @@ section {
         font-size: 80px;
         opacity: 0;
         animation: fadeIn 1s ease-in forwards 0.5s;
-        text-shadow: 3px 3px 6px #fff1aa72;
+        text-shadow: 3px 3px 6px #fff1aa98;
         font-family: 'Cinzel Decorative', serif;
     }
 
@@ -289,7 +289,7 @@ section {
     color: $primary-color;
     display: inline-block;
     margin: 1px 0;
-    text-shadow: 3px 3px 6px #fff1aa7d;
+    text-shadow: 3px 3px 6px #fff1aa98;
 }
 
 @keyframes fadeIn {
@@ -476,6 +476,34 @@ section {
             font-size: 1.05rem;
             font-weight: 700;
             font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 0;
+        }
+
+        // Gift list styling
+        .gift-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0 0;
+            
+            li {
+                color: $text-dark;
+                line-height: 1.8;
+                font-size: 1.05rem;
+                font-weight: 700;
+                font-family: 'Cormorant Garamond', serif;
+                padding-left: 20px;
+                position: relative;
+                
+                &::before {
+                    content: '•';
+                    color: $primary-color;
+                    font-weight: bold;
+                    font-size: 1.3rem;
+                    position: absolute;
+                    left: 0;
+                    top: -2px;
+                }
+            }
         }
     }
 
@@ -492,6 +520,10 @@ section {
         font-size: 1.8rem;
     }
 }
+
+// ========================================
+// HOMEPAGE STYLES - PART 2
+// ========================================
 
 // Section 4 - RSVP Form (FIXED HEIGHT WITH SCROLLABLE FORM)
 #section4 {
@@ -953,6 +985,23 @@ form {
         .notes-header p {
             font-size: 1.2rem;
         }
+
+        .note-card {
+            padding: 25px;
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .gift-list li {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+        }
     }
 
     #section4 {
@@ -1018,6 +1067,7 @@ form {
 
     #section1 {
         h1 {
+            margin-top: 70px;
             font-size: 40px;
         }
 
