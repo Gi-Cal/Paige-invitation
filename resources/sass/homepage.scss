@@ -355,7 +355,7 @@ section {
         margin-bottom: 5px;
         position: relative;
         z-index: 2;
-        color: $text-light;
+        color: #2e2e2eba;
         font-size: 1.3rem;
     }
 
@@ -375,7 +375,7 @@ section {
         p {
             font-size: 1.1rem;
             font-weight: 700;
-            color: $text-light;
+            color: #2e2e2eba;
             font-family: 'Cormorant Garamond', serif;
         }
     }
@@ -433,10 +433,11 @@ section {
 
         p {
             font-size: 1.3rem;
-            color: $text-light;
+            color: #2e2e2eba;
             font-style: italic;
             font-weight: 700;
             font-family: 'Cormorant Garamond', serif;
+            text-shadow: 2px 10px 4px rgba(152, 152, 152, 0.315);
         }
     }
 
@@ -449,8 +450,8 @@ section {
     }
 
     .note-card {
-        background: #ebebeb44;
-        border-radius: 15px;
+        background: #ebebeba5;
+        border-radius: 10px;
         padding: 35px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -471,7 +472,7 @@ section {
         }
 
         p {
-            color: $text-dark;
+            color: #2e2e2eba;
             line-height: 1.7;
             font-size: 1.05rem;
             font-weight: 700;
@@ -510,7 +511,7 @@ section {
     .note-icon {
         width: 55px;
         height: 55px;
-        background: linear-gradient(135deg, #e6a83ea7 0%, #d4942d 100%);
+        background: #a0974ac9;
         border-radius: 12px;
         display: flex;
         align-items: center;
