@@ -53,7 +53,7 @@ nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #A0984A;
+    background: $secondary-color;
     height: 60px;
     display: flex;
     align-items: center;
@@ -824,7 +824,7 @@ form {
 
 // Footer - FIXED SIZE
 #footer {
-    background-color: #A0984A;
+    background-color: $secondary-color;
     min-height: auto;
     height: auto;
     padding: 25px 20px;
