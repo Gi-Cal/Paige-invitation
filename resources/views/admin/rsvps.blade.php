@@ -81,11 +81,14 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 3px solid #D6C17A;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .stats {
             display: flex;
             gap: 30px;
+            flex-wrap: wrap;
         }
 
         .stat-item {
@@ -137,15 +140,56 @@
             box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
         }
 
-        .table-container {
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-label {
+            font-size: 1.1rem;
+            color: #4d683e;
+            font-weight: 600;
+        }
+
+        #attendingFilter {
+            padding: 12px 20px;
+            border: 2px solid #D6C17A;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            color: #4d683e;
+            font-weight: 600;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #attendingFilter:hover {
+            border-color: #b8a05f;
+            box-shadow: 0 2px 10px rgba(214, 193, 122, 0.3);
+        }
+
+        #attendingFilter:focus {
+            outline: none;
+            border-color: #4d683e;
+            box-shadow: 0 0 0 3px rgba(77, 104, 62, 0.1);
+        }
+
+        .content-wrapper {
             padding: 40px;
+        }
+
+        .table-container {
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 30px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             background: white;
+            min-width: 800px;
         }
 
         thead {
@@ -224,15 +268,217 @@
             color: #666;
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+        /* Pagination Styles - FIXED: Now outside scrollable area */
+        .pagination-container {
+            padding: 20px 0;
+            background: white;
+        }
+
+        .pagination-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pagination-btn {
+            padding: 10px 16px;
+            border: 2px solid #D6C17A;
+            background: white;
+            color: #4d683e;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+
+        .pagination-btn:hover:not(.disabled) {
+            background: #fef9e7;
+            border-color: #b8a05f;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(214, 193, 122, 0.3);
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(135deg, #D6C17A 0%, #b8a05f 100%);
+            color: white;
+            border-color: #D6C17A;
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .pagination-ellipsis {
+            padding: 0 8px;
+            color: #4d683e;
+            font-weight: 600;
+        }
+
+        .pagination-info {
+            padding: 10px 16px;
+            background: #fef9e7;
+            border: 2px solid #D6C17A;
+            border-radius: 8px;
+            color: #4d683e;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .pagination-arrow {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .pagination-text {
+            display: inline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                margin: 0 10px;
             }
 
             .actions {
                 flex-direction: column;
-                gap: 15px;
-                text-align: center;
+                align-items: stretch;
+            }
+
+            .stats {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .filter-group,
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .header::before,
+            .header::after {
+                font-size: 24px;
+            }
+
+            .header {
+                padding: 25px 20px;
+            }
+
+            .actions {
+                padding: 20px;
+            }
+
+            .stats {
+                flex-direction: row;
+                gap: 20px;
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .stat-item {
+                min-width: 100px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
+            .filter-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            #attendingFilter {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+                font-size: 1.1rem;
+            }
+
+            .content-wrapper {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+
+            th {
+                font-size: 0.9rem;
+            }
+
+            .status-badge {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+
+            .pagination-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+                min-width: 40px;
+            }
+
+            .pagination-text {
+                display: none;
+            }
+
+            .pagination-arrow {
+                font-size: 1rem;
+            }
+
+            .pagination-info {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
             }
 
             .stats {
@@ -240,16 +486,66 @@
                 gap: 15px;
             }
 
-            .table-container {
-                padding: 20px;
+            .stat-number {
+                font-size: 1.8rem;
             }
 
-            table {
+            .pagination-btn {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+                min-width: 36px;
+            }
+
+            .pagination-ellipsis {
+                padding: 0 4px;
                 font-size: 0.9rem;
             }
 
-            th, td {
-                padding: 10px 8px;
+            .empty-state-icon {
+                font-size: 3rem;
+            }
+
+            .empty-state h2 {
+                font-size: 1.5rem;
+            }
+
+            .empty-state p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Landscape Mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .stats {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .actions {
+                padding: 15px;
+            }
+        }
+
+        /* Button group styling for mobile */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
             }
         }
     </style>
@@ -264,20 +560,28 @@
         <div class="actions">
             <div class="stats">
                 <div class="stat-item">
-                    <span class="stat-number">{{ $rsvps->count() }}</span>
+                    <span class="stat-number total">{{ $rsvps->count() }}</span>
                     <span class="stat-label">Total RSVPs</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">{{ $rsvps->where('attending', 'yes')->count() }}</span>
+                    <span class="stat-number attending">{{ $rsvps->where('attending', 'yes')->count() }}</span>
                     <span class="stat-label">Attending</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">{{ $rsvps->where('attending', 'no')->count() }}</span>
+                    <span class="stat-number not-attending">{{ $rsvps->where('attending', 'no')->count() }}</span>
                     <span class="stat-label">Not Attending</span>
                 </div>
             </div>
-            <div style="display: flex; gap: 15px;">
-                <a href="{{ route('admin.download') }}" class="btn">
+            <div class="button-group">
+                <div class="filter-group">
+                    <label for="attendingFilter" class="filter-label">Filter:</label>
+                    <select id="attendingFilter">
+                        <option value="all">All Status</option>
+                        <option value="yes">Attending</option>
+                        <option value="no">Not Attending</option>
+                    </select>
+                </div>
+                <a href="#" class="btn btn-download" data-download-url="{{ route('admin.download') }}">
                     📥 Download Excel
                 </a>
                 <a href="{{ route('admin.logout') }}" class="btn btn-logout">
@@ -286,38 +590,45 @@
             </div>
         </div>
 
-        <div class="table-container">
+        <div class="content-wrapper">
             @if($rsvps->isNotEmpty())
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Attending</th>
-                            <th>Additional Guests</th>
-                            <th>Message</th>
-                            <th>Submitted At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($rsvps as $index => $rsvp)
+                <div class="table-container">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><strong>{{ $index + 1 }}</strong></td>
-                                <td><strong>{{ $rsvp->name }}</strong></td>
-                                <td>{{ $rsvp->email }}</td>
-                                <td>
-                                    <span class="status-badge status-{{ $rsvp->attending }}">
-                                        {{ ucfirst($rsvp->attending) }}
-                                    </span>
-                                </td>
-                                <td>{{ $rsvp->additional_guests ?: '-' }}</td>
-                                <td>{{ $rsvp->message ?: '-' }}</td>
-                                <td>{{ $rsvp->created_at->format('M d, Y h:i A') }}</td>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Attending</th>
+                                <th>Additional Guests</th>
+                                <th>Message</th>
+                                <th>Submitted At</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($rsvps as $index => $rsvp)
+                                <tr>
+                                    <td><strong>{{ $index + 1 }}</strong></td>
+                                    <td><strong>{{ $rsvp->name }}</strong></td>
+                                    <td>{{ $rsvp->email }}</td>
+                                    <td>
+                                        <span class="status-badge status-{{ $rsvp->attending }}">
+                                            {{ ucfirst($rsvp->attending) }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $rsvp->additional_guests ?: '-' }}</td>
+                                    <td>{{ $rsvp->message ?: '-' }}</td>
+                                    <td>{{ $rsvp->created_at->format('M d, Y h:i A') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination Container - NOW OUTSIDE TABLE CONTAINER -->
+                <div class="pagination-container">
+                    <div id="pagination"></div>
+                </div>
             @else
                 <div class="empty-state">
                     <div class="empty-state-icon">📭</div>
@@ -327,5 +638,7 @@
             @endif
         </div>
     </div>
+
+@vite(['resources/js/admin-rsvp.js'])
 </body>
 </html>
