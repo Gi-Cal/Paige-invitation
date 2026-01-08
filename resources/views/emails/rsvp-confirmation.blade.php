@@ -156,7 +156,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Chapter One</h1>
+            <h1>Paige One</h1>
             <p>Paige's First Birthday Celebration</p>
         </div>
 
@@ -172,7 +172,7 @@
                     @endif
                 @else
                     <p>Thank you for letting us know. We're sorry you can't make it, but we appreciate you taking the time to respond.</p>
-                    <p>If you change your mind or your plans change, please feel free to contact us at <strong>iamgiancarlli@gmail.com</strong>. We would love to have you join us!</p>
+                    <p>If you change your mind or your plans change, please feel free to contact us at <strong>paigeinv@gmail.com</strong>. We would love to have you join us!</p>
                 @endif
             </div>
 
@@ -183,17 +183,17 @@
                 
                 <div class="detail-item">
                     <span class="detail-label">Date:</span>
-                    <span class="detail-value">Saturday, December 14th, 2024</span>
+                    <span class="detail-value">Wednesday, January 21, 2026</span>
                 </div>
                 
                 <div class="detail-item">
                     <span class="detail-label">Time:</span>
-                    <span class="detail-value">2:00 PM - 5:00 PM</span>
+                    <span class="detail-value">5:00 PM - 7:00 PM</span>
                 </div>
                 
                 <div class="detail-item">
                     <span class="detail-label">Venue:</span>
-                    <span class="detail-value">The Enchanted Garden<br>123 Storybook Lane, Wonderland</span>
+                    <span class="detail-value">Jollibee Acacia Lane, Mandaluyong City</span>
                 </div>
             </div>
 
@@ -202,18 +202,23 @@
                 <h3>✨ Gentle Reminders</h3>
                 
                 <div class="reminder-item">
-                    <strong>♡ Bring Your Joy</strong>
-                    Your presence is the greatest gift of all. Come with a heart full of wonder!
+                    <strong>🎭 Dress Up Fun</strong>
+                    We'd be so happy to see everyone in costume, it's highly appreciated! If not, cartoon, Disney, or book-character outfits, shirts, or fun headbands & accessories will still make the day extra special.
                 </div>
                 
                 <div class="reminder-item">
                     <strong>🎁 Gifts Optional</strong>
-                    While not required, books for our little one's library would be treasured.
+                    Your presence is the greatest gift. However, should you wish to bring something, we've prepared a small wish list below:
+                    <ul class="gift-list">
+                        <li>EQ Diaper (Large)</li>
+                        <li>Mustela Products (Bath/Lotion)</li>
+                        <li>Monetary gift</li>
+                    </ul>
                 </div>
                 
                 <div class="reminder-item">
                     <strong>📷 Capture the Magic</strong>
-                    Feel free to take photos and share the memories. Use #FirstChapter on social media!
+                    Feel free to take photos and share the memories!
                 </div>
             </div>
             @endif
@@ -229,6 +234,7 @@
             <div class="contact-info">
                 <strong>Need to reach us?</strong>
                 <p>Email: paigeinv@gmail.com</p>
+                <p>FB:<a href="https://www.facebook.com/Jaznenggg"> Jaznei Lhiyehn</a> </p>
                 <p>We're here to answer any questions!</p>
             </div>
         </div>

@@ -93,7 +93,7 @@
             <h4>When the clock strikes two, the festivities shall begin</h4>
             <div class="date">
                 <h2>DATE</h2>
-                <p>Saturday, January 21, 2026</p>
+                <p>Wednesday, January 21, 2026</p>
             </div>
             <div class="time">
                 <h2>TIME</h2>
