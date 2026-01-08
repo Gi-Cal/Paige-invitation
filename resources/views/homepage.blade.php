@@ -147,7 +147,7 @@
                 <div class="note-card">
                     <div class="note-icon">✈</div>
                     <h2>RSVP Soon</h2>
-                    <p>Please let us know if you can join by December 15th, so we can prepare the feast!</p>
+                    <p>Please let us know if you can join by January 15th, so we can prepare the feast!</p>
                 </div>
             </div>
         </div>
